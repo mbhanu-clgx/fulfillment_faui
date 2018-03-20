@@ -1,5 +1,5 @@
-view: customer {
-  sql_table_name: public.customer ;;
+view: customer_aud {
+  sql_table_name: public.customer_aud ;;
 
   dimension: id {
     primary_key: yes
@@ -36,6 +36,16 @@ view: customer {
     sql: ${TABLE}.insert_dt ;;
   }
 
+  dimension: rev {
+    type: number
+    sql: ${TABLE}.rev ;;
+  }
+
+  dimension: revtype {
+    type: number
+    sql: ${TABLE}.revtype ;;
+  }
+
   dimension_group: update_dt {
     type: time
     timeframes: [
@@ -52,6 +62,6 @@ view: customer {
 
   measure: count {
     type: count
-    drill_fields: [id, customer_name, business_unit.count, business_unit_aud.count]
+    drill_fields: [id, customer_name]
   }
 }

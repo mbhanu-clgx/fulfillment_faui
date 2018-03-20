@@ -1,5 +1,5 @@
-view: customer {
-  sql_table_name: public.customer ;;
+view: business_unit_aud {
+  sql_table_name: public.business_unit_aud ;;
 
   dimension: id {
     primary_key: yes
@@ -12,14 +12,25 @@ view: customer {
     sql: ${TABLE}.added_by_user ;;
   }
 
+  dimension: business_unit {
+    type: string
+    sql: ${TABLE}.business_unit ;;
+  }
+
   dimension: contact_email {
     type: string
     sql: ${TABLE}.contact_email ;;
   }
 
-  dimension: customer_name {
+  dimension: contact_name {
     type: string
-    sql: ${TABLE}.customer_name ;;
+    sql: ${TABLE}.contact_name ;;
+  }
+
+  dimension: customer_id {
+    type: number
+    # hidden: yes
+    sql: ${TABLE}.customer_id ;;
   }
 
   dimension_group: insert_dt {
@@ -34,6 +45,16 @@ view: customer {
       year
     ]
     sql: ${TABLE}.insert_dt ;;
+  }
+
+  dimension: rev {
+    type: number
+    sql: ${TABLE}.rev ;;
+  }
+
+  dimension: revtype {
+    type: number
+    sql: ${TABLE}.revtype ;;
   }
 
   dimension_group: update_dt {
@@ -52,6 +73,6 @@ view: customer {
 
   measure: count {
     type: count
-    drill_fields: [id, customer_name, business_unit.count, business_unit_aud.count]
+    drill_fields: [id, contact_name, customer.customer_name, customer.id]
   }
 }
